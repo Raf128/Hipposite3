@@ -337,7 +337,8 @@
     });
 
     function printerHang() {
-      const extensionUrl = document.getElementById("extensions").value;
+      const selectedUrl = document.getElementById("extensions").value;
+      alert(`Open ${selectedUrl} and spam "Allow access to file URLs for 5 seconds. Then come back here and click "cancel" on the print screen.`);
       let printerWindow = window.open("", "_blank");
       printerWindow.document.title = "Printer";
       let printerBody = printerWindow.document.body;
@@ -354,7 +355,7 @@
       setTimeout(() => {
         for (let i = 0; i < extSlider.value; i++) {
           const iframe = document.createElement('iframe');
-          iframe.src = extensionUrl;
+          iframe.src = selectedUrl;
           iframe.width = "25px";
           iframe.height = "25px";
           printerBody.appendChild(iframe);
