@@ -313,8 +313,8 @@
 
       for (let i; i<extensions.length; i++) {
         const extension = extensions[i];
-        const extensionName = Object.keys(extension)[0];
-        const extensionUrl = Object.values(extension)[0];
+        const extensionName = Object.keys(extension);
+        const extensionUrl = Object.values(extension);
         try {
           const response = await fetch(extensionUrl);
           if (!response.ok) {
