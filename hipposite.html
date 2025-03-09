@@ -307,7 +307,6 @@
         "LockDown Browser AP Classroom Edition": "chrome-extension://djpknfecbncogekjnjppojlaipeobkmo/assets/images/icon_128.png",
         "Lugus School": "chrome-extension://eoobggamkobbcpiojefejfglbfcacgca/assets/images/icon_128.png",
         "Dyknow": "chrome-extension://kmpjlilnemjciohjckjadmgmicoldglf/form.html",
-        "thing": "",
       };
       let supportedExtensions = false;
       const extensionsSelect = document.getElementById("extensions");
@@ -339,43 +338,32 @@
 
     function printerHang() {
       const selectedUrl = document.getElementById("extensions").value;
-      alert(`Open ${selectedUrl} and spam "Allow access to file URLs" for 5 seconds. Then click OK.`);
-
-      let printerWindow = window.open("", "_blank", "noopener,noreferrer");
+      alert(`Open ${selectedUrl} and spam "Allow access to file URLs for 5 seconds. Then come back here and click "cancel" on the print screen.`);
+      let printerWindow = window.open("", "_blank");
       printerWindow.document.title = "Printer";
       let printerBody = printerWindow.document.body;
 
-      let timeout = printerWindow.document.createElement("script");
+      let timeout = printerWindow.createElement("script");
       timeout.innerHTML = `
-        setTimeout(() => { window.close(); }, 5000);
-    `;
+        setTimeout(() => {
+          window.close();
+        }, 5000);
+      `;
       printerBody.appendChild(timeout);
-
       const extSlider = document.getElementById("extSlider");
-      const iframeContainer = printerWindow.document.createElement("div");
-
+      const iframeContainer = document.createElement("div");
       setTimeout(() => {
         for (let i = 0; i < extSlider.value; i++) {
-          const iframe = printerWindow.document.createElement("iframe");
+          const iframe = document.createElement('iframe');
           iframe.src = selectedUrl;
           iframe.width = "25px";
           iframe.height = "25px";
-          iframeContainer.appendChild(iframe);
+          printerBody.appendChild(iframe);
         }
-
-        printerBody.appendChild(iframeContainer);
-
-        // Wait for the iframes to load, then trigger print
-        setTimeout(() => {
-          printerWindow.print();
-
-          // Delay iframe removal to prevent premature cleanup
-          setTimeout(() => {
-            let iframes = printerWindow.document.querySelectorAll("iframe");
-            iframes.forEach(iframe => iframe.remove());
-          }, 5000);
-        }, 2000);
-
+        iframeContainer.remove();
+        printerWindow.print();
+        let iframes = printerWindow.document.querySelectorAll("iframe");
+        iframes.forEach(iframe => ifrae.remove());
       }, 1000);
     }
   </script>
