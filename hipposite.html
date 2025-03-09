@@ -311,10 +311,7 @@
 
       const extensionsSelect = document.getElementById("extensions");
 
-      for (let i; i<extensions.length; i++) {
-        const extension = extensions[i];
-        const extensionName = Object.keys(extension);
-        const extensionUrl = Object.values(extension);
+      for (const[extensionName, extensionUrl] of Object.entries(extensions)) {
         try {
           const response = await fetch(extensionUrl);
           if (!response.ok) {
