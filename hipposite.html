@@ -308,7 +308,7 @@
         "Lugus School": "chrome-extension://eoobggamkobbcpiojefejfglbfcacgca/assets/images/icon_128.png",
         "Dyknow": "chrome-extension://kmpjlilnemjciohjckjadmgmicoldglf/form.html",
       };
-
+      let supportedExtensions = false;
       const extensionsSelect = document.getElementById("extensions");
 
       for (const[extensionName, extensionUrl] of Object.entries(extensions)) {
@@ -317,17 +317,18 @@
           if (!response.ok) {
             throw new Error(`Failed to fetch extension: ${extensionUrl}`);
           }
+          const option = document.createElement("option");
+          option.value = extensionUrl;
+          option.textContent = extensionName;
+          extensionsSelect.appendChild(option);
+          supportedExtensions = true;
+          
         } catch (error) {
-            break;
+          console.log(`${extensionName}: ${error.message}`);
         }
-
-        const option = document.createElement("option");
-        option.value = extensionUrl;
-        option.textContent = extensionName;
-        extensionsSelect.appendChild(option);
       }
 
-      if (extensionsSelect.options.length === 0) {
+      if (!supportedExtensions) {
         const option = document.createElement("option");
         option.value = "";
         option.textContent = "No supported extensions found";
