@@ -322,7 +322,7 @@
           option.textContent = extensionName;
           extensionsSelect.appendChild(option);
           supportedExtensions = true;
-          
+
         } catch (error) {
           console.log(`${extensionName}: ${error.message}`);
         }
@@ -339,7 +339,7 @@
     function printerHang() {
       const extensionUrl = document.getElementById("extensions").value;
       let printerWindow = window.open("", "_blank");
-      printerWindow.docuemnt.title = "Printer";
+      printerWindow.document.title = "Printer";
       let printerBody = printerWindow.document.body;
 
       let timeout = printerWindow.createElement("script");
